@@ -44,12 +44,12 @@ void asciiMenu()
 	char option;
 
 	string textString = "";
+	string fileText = "";
 
 	system("cls");
 
 	do
 	{
-		cout << endl;
 		cout << "1> ASCII Text To ASCII Numbers\n";
 		cout <<
 			"==========================================================\n";
@@ -77,6 +77,8 @@ void asciiMenu()
 				}
 				else
 				{
+					fileText = textString;
+
 					cout << endl << "\tConverted to ASCII numbers: \n\t";
 
 					for (int i = 0; i < textString.length(); i++)
@@ -87,7 +89,15 @@ void asciiMenu()
 					cout << endl;
 				}
 				break;
-			case 'C': writeFile(textString);
+			case 'C':
+				if (fileText == "")
+				{
+					cout << "\n\tERROR: empty binary text.\n";
+				}
+				else
+				{
+				writeFile(textString);
+				}
 				break;
 			case 'D': readFile();
 				break;
@@ -97,6 +107,7 @@ void asciiMenu()
 
 			}
 		} while (option != '0' && option != 'A' && option != 'B' && option != 'C' && option != 'D');
+		cout << endl;
 	} while (true);
 }
 void writeFile(string textString)
