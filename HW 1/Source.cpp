@@ -61,36 +61,42 @@ void asciiMenu()
 		cout << "\t0> return\n";
 		cout <<
 			"==========================================================\n";
-
-		option = toupper(inputChar("\tOption: ", true));
-
-		switch (option)
+		do
 		{
-		case 'A': textString = inputString("\n\tEnter a text line: \n\t", true);
-			break;
-		case 'B': 
-			if (textString == "")
-		{
-			cout << "\n\tERROR: empty input text.\n";
+			option = toupper(inputChar("\tOption: "));
 
-		}
-			else
-		{
-				cout << endl << "\tConverted to ASCII numbers: \n\t";
-
-				for (int i = 0; i < textString.length(); i++)
+			switch (option)
+			{
+			case 'A': textString = inputString("\n\tEnter a text line: \n\t", true);
+				break;
+			case 'B':
+				if (textString == "")
 				{
-					cout << int(textString[i]) << " ";
+					cout << "\n\tERROR: empty input text.\n";
+
 				}
+				else
+				{
+					cout << endl << "\tConverted to ASCII numbers: \n\t";
 
-				cout << endl;
-		}
-			break;
-		case 'C': writeFile(textString);
-			break;
-		case 'D': readFile();
+					for (int i = 0; i < textString.length(); i++)
+					{
+						cout << int(textString[i]) << " ";
+					}
 
-		}
+					cout << endl;
+				}
+				break;
+			case 'C': writeFile(textString);
+				break;
+			case 'D': readFile();
+				break;
+			default: cout << "ERROR-1A: Invalid input. Must be '0','A','B','C', or 'D'\n";
+
+
+
+			}
+		} while (option != '0' && option != 'A' && option != 'B' && option != 'C' && option != 'D');
 	} while (true);
 }
 void writeFile(string textString)
@@ -133,5 +139,5 @@ void readFile()
 
 	readFile.close();
 
-	cout << endl  << "\t" << textLine << endl;
-}
+	cout << endl << "\tReading file, test.bin...\n" << "\t" << textLine << endl;
+} 
