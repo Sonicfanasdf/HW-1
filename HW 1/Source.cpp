@@ -9,7 +9,7 @@ void menu();
 void chooseOption();
 void asciiMenu();
 void writeFile(string textString);
-void readFile();
+void readFile(string fileText);
 
 int main()
 {
@@ -32,12 +32,19 @@ void menu()
 }
 void chooseOption()
 {
-	int option = inputInteger("Option: ", true);
-	switch (option)
+	do
 	{
-	case 1: asciiMenu();
-		break;
-	}
+		int option = inputInteger("\tOption: ");
+
+		switch (option)
+		{
+		case 0: exit(0);
+			break;
+		case 1: asciiMenu();
+			break;
+		default: cout << "ERROR-3A: Invalid input. Must be from 0..3.\n";
+		}
+	} while (true);
 }
 void asciiMenu()
 {
@@ -47,6 +54,7 @@ void asciiMenu()
 	string fileText = "";
 
 	system("cls");
+	remove("text.bin");
 
 	do
 	{
@@ -67,7 +75,8 @@ void asciiMenu()
 
 			switch (option)
 			{
-			case 'A': textString = inputString("\n\tEnter a text line: \n\t", true);
+			case 'A': fileText = "";
+				textString = inputString("\n\tEnter a text line: \n\t", true);
 				break;
 			case 'B':
 				if (textString == "")
@@ -99,7 +108,13 @@ void asciiMenu()
 				writeFile(textString);
 				}
 				break;
-			case 'D': readFile();
+			case 'D': readFile(fileText);
+				break;
+			case '0': cout << endl;
+				system("pause");
+				system("cls");
+				menu();
+				chooseOption();
 				break;
 			default: cout << "ERROR-1A: Invalid input. Must be '0','A','B','C', or 'D'\n";
 
@@ -120,7 +135,6 @@ void writeFile(string textString)
 	{
 		cout << "File did not open\n";
 
-		exit(1);
 	}
 
 	for (int i = 0; i < textString.length(); i++)
@@ -132,7 +146,7 @@ void writeFile(string textString)
 
 	cout << endl << "File, test.bin, has been written and saved.\n";
 }
-void readFile()
+void readFile(string fileText)
 {
 	string textLine;
 	ifstream readFile;
@@ -141,14 +155,19 @@ void readFile()
 
 	if (!readFile)
 	{
-		cout << "File did not open\n";
+		cout << "\tFile did not open\n";
 
-		exit(1);
 	}
+	else if (fileText == "")
+	{
+		cout << "\tFile did not open\n";
+	}
+	else
+	{
+		getline(readFile, textLine);
 
-	getline(readFile, textLine);
+		readFile.close();
 
-	readFile.close();
-
-	cout << endl << "\tReading file, test.bin...\n" << "\t" << textLine << endl;
+		cout << endl << "\tReading file, test.bin...\n" << "\t" << textLine << endl;
+	}
 } 
