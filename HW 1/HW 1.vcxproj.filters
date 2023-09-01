@@ -24,4 +24,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\Downloads\DATASET3.DAT">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="..\..\..\..\Downloads\DATASET10.DAT">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
